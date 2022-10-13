@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dbmanager.dart';
 
 class HomePage extends StatefulWidget {
@@ -79,6 +80,9 @@ class _HomePageState extends State<HomePage> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               studList = snapshot.data!;
+                              studList.sort((a, b) => a.name!
+                                  .toLowerCase()
+                                  .compareTo(b.name!.toLowerCase()));
                               return SizedBox(
                                 height: size.height * 0.52,
                                 child: ListView.builder(
@@ -101,8 +105,8 @@ class _HomePageState extends State<HomePage> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                        "Id: ${st.id.toString()}"),
+                                                    // Text(
+                                                    //     "Id: ${st.id.toString()}"),
                                                     Text(
                                                         "Name: ${st.name.toString()}"),
                                                     Text(
@@ -125,13 +129,8 @@ class _HomePageState extends State<HomePage> {
                                                   )),
                                               InkWell(
                                                   onTap: () {
-                                                    dbmanager.deleteStudent(
-                                                        st.id.toString());
-                                                    print(
-                                                        "delete data${st.id.toString()}");
-                                                    setState(() {
-                                                      studList.removeAt(i);
-                                                    });
+                                                    conformationAlert(st, i);
+                                                    // Get.back();
                                                   },
                                                   child: const Icon(
                                                     Icons.delete,
@@ -169,9 +168,6 @@ class _HomePageState extends State<HomePage> {
         dbmanager.insertStudent(st).then((id) => {
               _nameController.clear(),
               _courseController.clear(),
-              // studList.add(Student(
-              //     name: _nameController.text, course: _courseController.text)
-
               print("student added to db ${id}"),
             });
       } else {
@@ -188,5 +184,31 @@ class _HomePageState extends State<HomePage> {
         });
       }
     }
+  }
+
+  conformationAlert(Student st, int i) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text("Are you sure you wante to delete !"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("No")),
+              TextButton(
+                  onPressed: () {
+                    dbmanager.deleteStudent(st.id.toString());
+                    setState(() {
+                      studList.removeAt(i);
+                    });
+                    Get.back();
+                  },
+                  child: const Text("Yes")),
+            ],
+          );
+        });
   }
 }
