@@ -30,7 +30,7 @@ class DbStudentManager {
     });
   }
 
-// student data updte
+// student data update
 
   Future<int> updateStudent(Student student) async {
     await openDb();
@@ -38,7 +38,7 @@ class DbStudentManager {
         where: "id=?", whereArgs: [student.id]);
   }
 
-  // studern record delete from dabale
+  // student record delete from table
 
   Future<void> deleteStudent(id) async {
     await openDb();

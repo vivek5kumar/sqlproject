@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'dbmanager.dart';
 
@@ -84,63 +85,100 @@ class _HomePageState extends State<HomePage> {
                                   .toLowerCase()
                                   .compareTo(b.name!.toLowerCase()));
                               return SizedBox(
-                                height: size.height * 0.52,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    // shrinkWrap: true,
-                                    itemCount:
-                                        studList == null ? 0 : studList.length,
-                                    itemBuilder: (context, i) {
-                                      Student st = studList[i];
-                                      return Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Container(
-                                                width: size.width * 0.4,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    // Text(
-                                                    //     "Id: ${st.id.toString()}"),
-                                                    Text(
-                                                        "Name: ${st.name.toString()}"),
-                                                    Text(
-                                                        "Course: ${st.course.toString()}"),
-                                                  ],
+                                height: size.height * 0.6,
+                                child: AnimationLimiter(
+                                  child: studList.isNotEmpty
+                                      ? ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          // shrinkWrap: true,
+                                          itemCount: studList == null
+                                              ? 0
+                                              : studList.length,
+                                          itemBuilder: (context, i) {
+                                            Student st = studList[i];
+                                            return AnimationConfiguration
+                                                .staggeredList(
+                                              position: i,
+                                              duration:
+                                                  const Duration(seconds: 2),
+                                              child: SlideAnimation(
+                                                // verticalOffset: 50.0,
+                                                child: FadeInAnimation(
+                                                  child: Card(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Container(
+                                                            width: size.width *
+                                                                0.5,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                // Text(
+                                                                //     "Id: ${st.id.toString()}"),
+                                                                Text(
+                                                                    "Name: ${st.name.toString()}"),
+                                                                Text(
+                                                                    "Course: ${st.course.toString()}"),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 20,
+                                                            child: InkWell(
+                                                                onTap: () {
+                                                                  _nameController
+                                                                          .text =
+                                                                      st.name
+                                                                          .toString();
+                                                                  _courseController
+                                                                          .text =
+                                                                      st.course
+                                                                          .toString();
+                                                                  student = st;
+                                                                  updateIndex =
+                                                                      i;
+                                                                },
+                                                                child:
+                                                                    const Icon(
+                                                                  Icons.edit,
+                                                                  color: Colors
+                                                                      .blue,
+                                                                )),
+                                                          ),
+                                                          Container(
+                                                            width: 20,
+                                                            child: InkWell(
+                                                                onTap: () {
+                                                                  conformationAlert(
+                                                                      st, i);
+                                                                  // Get.back();
+                                                                },
+                                                                child:
+                                                                    const Icon(
+                                                                  Icons.delete,
+                                                                  color: Colors
+                                                                      .red,
+                                                                )),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    _nameController.text =
-                                                        st.name.toString();
-                                                    _courseController.text =
-                                                        st.course.toString();
-                                                    student = st;
-                                                    updateIndex = i;
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.edit,
-                                                    color: Colors.blue,
-                                                  )),
-                                              InkWell(
-                                                  onTap: () {
-                                                    conformationAlert(st, i);
-                                                    // Get.back();
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red,
-                                                  ))
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                            );
+                                          })
+                                      : Center(child: Text("No Data")),
+                                ),
                               );
                             }
                             return const Center(
@@ -166,6 +204,8 @@ class _HomePageState extends State<HomePage> {
             name: _nameController.text,
             course: _courseController.text);
         dbmanager.insertStudent(st).then((id) => {
+              // studList.sort((a, b) =>
+              //     a.name!.toLowerCase().compareTo(b.name!.toLowerCase())),
               _nameController.clear(),
               _courseController.clear(),
               print("student added to db ${id}"),
