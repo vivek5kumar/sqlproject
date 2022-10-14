@@ -198,31 +198,33 @@ class _HomePageState extends State<HomePage> {
 
   void _submitStudent(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      if (student == null) {
-        Student st = Student(
-            id: "0",
-            name: _nameController.text,
-            course: _courseController.text);
-        dbmanager.insertStudent(st).then((id) => {
-              // studList.sort((a, b) =>
-              //     a.name!.toLowerCase().compareTo(b.name!.toLowerCase())),
-              _nameController.clear(),
-              _courseController.clear(),
-              print("student added to db ${id}"),
-            });
-      } else {
-        student!.name = _nameController.text;
-        student!.course = _courseController.text;
+      setState(() {
+        if (student == null) {
+          Student st = Student(
+              id: "0",
+              name: _nameController.text,
+              course: _courseController.text);
+          dbmanager.insertStudent(st).then((id) => {
+                // studList.sort((a, b) =>
+                //     a.name!.toLowerCase().compareTo(b.name!.toLowerCase())),
+                _nameController.clear(),
+                _courseController.clear(),
+                print("student added to db ${id}"),
+              });
+        } else {
+          student!.name = _nameController.text;
+          student!.course = _courseController.text;
 
-        dbmanager.updateStudent(student!).then((id) {
-          setState(() {
-            studList[updateIndex!].name = _nameController.text;
-            studList[updateIndex!].course = _courseController.text;
+          dbmanager.updateStudent(student!).then((id) {
+            setState(() {
+              studList[updateIndex!].name = _nameController.text;
+              studList[updateIndex!].course = _courseController.text;
+            });
+            _nameController.clear();
+            _courseController.clear();
           });
-          _nameController.clear();
-          _courseController.clear();
-        });
-      }
+        }
+      });
     }
   }
 
