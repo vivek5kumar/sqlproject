@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
 
   final _nameController = TextEditingController();
   final _courseController = TextEditingController();
-  final _idController = TextEditingController();
+  // final _idController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   Student? student;
   List<Student> studList = [];
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                                             MainAxisAlignment
                                                                 .spaceAround,
                                                         children: [
-                                                          Container(
+                                                          SizedBox(
                                                             width: size.width *
                                                                 0.5,
                                                             child: Column(
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                                                               ],
                                                             ),
                                                           ),
-                                                          Container(
+                                                          SizedBox(
                                                             width: 20,
                                                             child: InkWell(
                                                                 onTap: () {
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .blue,
                                                                 )),
                                                           ),
-                                                          Container(
+                                                          SizedBox(
                                                             width: 20,
                                                             child: InkWell(
                                                                 onTap: () {
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             );
                                           })
-                                      : Center(child: Text("No Data")),
+                                      : const Center(child: Text("No Data")),
                                 ),
                               );
                             }
