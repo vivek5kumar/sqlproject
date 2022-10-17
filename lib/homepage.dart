@@ -108,19 +108,17 @@ class _HomePageState extends State<HomePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Center(
-                                              child: SizedBox(
-                                                width: size.width * 0.5,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                        "Name :${st.name.toString()}"),
-                                                    Text(
-                                                        "Course :${st.course.toString()}"),
-                                                  ],
-                                                ),
+                                            SizedBox(
+                                              width: size.width * 0.5,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      "Name :${st.name.toString()}"),
+                                                  Text(
+                                                      "Course :${st.course.toString()}"),
+                                                ],
                                               ),
                                             ),
                                             SizedBox(
