@@ -45,8 +45,8 @@ class _HomePageState extends State<HomePage> {
                               ? null
                               : "Name should not be empty",
                           decoration: InputDecoration(
-                              // contentPadding:
-                              //     const EdgeInsets.symmetric(vertical: 5.0),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               labelText: "Name",
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage> {
                               ? null
                               : "Course should not be empty",
                           decoration: InputDecoration(
-                              // contentPadding:
-                              //     const EdgeInsets.symmetric(vertical: 5.0),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               labelText: "Course",
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
