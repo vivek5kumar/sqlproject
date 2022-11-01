@@ -76,7 +76,7 @@ class _ExpansionState extends State<Expansion> {
 
 class ExpansionItem {
   bool? isExpanded;
-  String? header;
+  String? header;  
   String? body;
   ExpansionItem({this.isExpanded: false, this.header, this.body});
 }
