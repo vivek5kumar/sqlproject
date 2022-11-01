@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sqlproject/dbhomepage.dart';
+import 'package:sqlproject/view/dbhomepage.dart';
 import 'package:sqlproject/network/apimanager.dart';
 
 class LoginController extends GetxController {
