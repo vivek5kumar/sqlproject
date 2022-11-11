@@ -74,7 +74,8 @@ class _HomePageState extends State<HomePage> {
                           width: size.width * 0.9,
                           child: ElevatedButton(
                               onPressed: () {
-                                // dbmanager.deleteTable();
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
                                 _submitStudent(context);
                               },
                               child: const Text("Submit")),
@@ -125,12 +126,7 @@ class _HomePageState extends State<HomePage> {
                                               width: 20,
                                               child: InkWell(
                                                   onTap: () {
-                                                    _nameController.text =
-                                                        st.name.toString();
-                                                    _courseController.text =
-                                                        st.course.toString();
-                                                    student = st;
-                                                    updateIndex = i;
+                                                    textUpdate(st, i);
                                                   },
                                                   child: const Icon(
                                                     Icons.edit,
@@ -179,30 +175,38 @@ class _HomePageState extends State<HomePage> {
               name: _nameController.text,
               course: _courseController.text);
           dbmanager.insertStudent(st).then((id) => {
-                // studList.sort((a, b) =>
-                //     a.name!.toLowerCase().compareTo(b.name!.toLowerCase())),
                 _nameController.clear(),
                 _courseController.clear(),
-                // print("student added to db ${id}"),
               });
         } else {
-          student!.name = _nameController.text;
-          student!.course = _courseController.text;
-
-          dbmanager.updateStudent(student!).then((id) {
-            setState(() {
-              studList[updateIndex!].name = _nameController.text;
-              studList[updateIndex!].course = _courseController.text;
-            });
-            _nameController.clear();
-            _courseController.clear();
-          });
+          return updateFun();
         }
       });
     }
   }
 
-  conformationAlert(Student st, int i) {
+  updateFun() {
+    student!.name = _nameController.text;
+    student!.course = _courseController.text;
+
+    dbmanager.updateStudent(student!).then((id) {
+      setState(() {
+        studList[updateIndex!].name = _nameController.text;
+        studList[updateIndex!].course = _courseController.text;
+      });
+      _nameController.clear();
+      _courseController.clear();
+    });
+  }
+
+  textUpdate(Student st, i) {
+    _nameController.text = st.name.toString();
+    _courseController.text = st.course.toString();
+    student = st;
+    updateIndex = i;
+  }
+
+  conformationAlert(Student st, i) {
     showDialog(
         context: context,
         builder: (context) {

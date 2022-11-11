@@ -34,6 +34,7 @@ class HomeController extends GetxController {
         onColorChanged: (color) {
           padColor.value = color;
         },
+        // ignore: deprecated_member_use
         showLabel: true,
         pickerAreaHeightPercent: .8,
       )),
@@ -50,6 +51,7 @@ class HomeController extends GetxController {
           penColor.value = color;
           initializeSignatureController();
         },
+        // ignore: deprecated_member_use
         showLabel: true,
         pickerAreaHeightPercent: .8,
       )),

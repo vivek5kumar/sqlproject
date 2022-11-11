@@ -18,7 +18,7 @@ class LoginController extends GetxController {
 
     await ApiManager().getLogin(_map).then((value) {
       if (value.status == 1) {
-        Get.to(HomePage());
+        Get.to(const HomePage());
       }
     });
   }

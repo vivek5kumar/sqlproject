@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-
-import 'package:sqlproject/view/signiture.dart';
+import 'package:sqlproject/view/dbhomepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignaturePage(),
+      home: const HomePage(),
     );
   }
 }

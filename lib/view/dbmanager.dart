@@ -15,7 +15,7 @@ class DbStudentManager {
 
 // insert table is ready
 
-  Future<int> insertStudent(Student student) async {
+  insertStudent(Student student) async {
     await openDb();
     return await _database!.insert('student', student.toMap());
   }
@@ -47,6 +47,7 @@ class DbStudentManager {
 }
 
 class Student {
+  // ignore: prefer_typing_uninitialized_variables
   var id;
   String? name;
   String? course;
